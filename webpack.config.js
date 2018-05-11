@@ -1,29 +1,46 @@
 const path = require('path');
+const glob = require('glob');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const autoprefixer = require('autoprefixer');
-const { CheckerPlugin } = require('awesome-typescript-loader');
 const isProd = process.env.NODE_ENV === 'production';
-const name = '{{name}}';
+
+const entry = {
+	vendor: ['jquery'],
+	common: './src/js/common'
+};
+const HtmlPlugin = [];
+glob.sync('./src/*.html').forEach(htmlPath => {
+	const filename = path.basename(htmlPath).toLowerCase();
+	const chunk = filename.replace('.html', '');
+	entry[chunk] = `./src/js/${chunk}.js`;
+	HtmlPlugin.push(new HtmlWebpackPlugin({
+		filename: filename,
+		template: htmlPath,
+		inject: 'body',
+		favicon: './src/img/favicon.ico',
+		chunks: ['vendor', 'common', chunk]
+	}))
+});
 
 module.exports = {
-	devtool: isProd ? '#source-map' : '#eval-source-map',
-	entry: {
-		main: './src/index.ts'
-	},
+	mode: isProd ? 'production' : 'development',
+	entry: entry,
 	output: {
-		path: path.join(__dirname, 'dist'),
-		filename: name + '/' + name + '.js',
-		libraryTarget: 'umd'
+		path: path.join(__dirname, './dist'),
+		filename: 'js/[name].js',
+		publicPath: './'
 	},
 	resolve: {
-		extensions: ['.ts', '.js', '.scss', 'less']
+		extensions: ['.js', '.scss', 'less']
 	},
+	devtool: isProd ? 'source-map' : 'eval-source-map',
 	module: {
-		rules: [
-			{
+		rules: [{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: {
@@ -34,22 +51,13 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.tsx?$/,
-				exclude: /node_modules/,
-				use: {
-					loader: 'awesome-typescript-loader'
-				}
-			},
-			{
 				test: /\.(scss|css)$/,
 				use: [
 					MiniCssExtractPlugin.loader,
 					{
 						loader: 'css-loader',
 						options: {
-							minimize: {
-								safe: true
-							}
+							minimize: true
 						}
 					},
 					{
@@ -68,31 +76,38 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.less$/,
-				use: [
-					'style-loader',
-					{ loader: 'css-loader', options: { importLoaders: 1 } },
-					{
-						loader: 'postcss-loader',
-						options: {
-							autoprefixer: {
-								browsers: ['last 2 versions']
-							},
-							plugins: () => [autoprefixer]
-						}
-					},
-					{
-						loader: 'less-loader',
-						options: { strictMath: true, noIeCompat: true }
+				test: /\.(png|jpg|gif)$/,
+				use: [{
+					loader: 'url-loader',
+					options: {
+						limit: 8192
 					}
-				]
+				}, {
+					loader: 'file-loader',
+					options: {
+						outputPath: 'img/',
+						name: '[name].[ext]'
+					}
+				}]
+			},
+			{
+				test: /\.handlebars$/,
+				use: {
+					loader: 'handlebars-loader'
+				}
 			}
 		]
 	},
+	optimization: {
+		splitChunks: {
+			name: 'vendor',
+			minChunks: 3
+		}
+	},
 	plugins: [
-		new CheckerPlugin(),
+		new CleanWebpackPlugin(['dist']),
 		new MiniCssExtractPlugin({
-			filename: name + '/' + name + '.css'
+			filename: 'css/[name].css'
 		}),
 		new UglifyJSPlugin({
 			uglifyOptions: {
@@ -100,6 +115,12 @@ module.exports = {
 					warnings: false
 				}
 			}
-		})
+		}),
+		new webpack.ProvidePlugin({
+			$: 'jquery',
+			jQuery: 'jquery',
+			'window.jQuery': 'jquery'
+		}),
+		...HtmlPlugin
 	]
 };

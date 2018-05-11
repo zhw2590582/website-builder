@@ -8,8 +8,8 @@
     "Harvey Zack <laozhaochaguan@gmail.com>"
   ],
   "scripts": {
-    "dev": "dev",
-    "build": "build",
+    "dev": "cross-env NODE_ENV=development webpack-serve ./webpack.config.js --open",
+    "build": "cross-env NODE_ENV=production webpack",
     "publish": "publish"
   },
   "keywords": [
@@ -25,31 +25,35 @@
   "homepage": "https://github.com/zhw2590582/web-generator#readme",
   "devDependencies": {
     "autoprefixer": "^8.4.1",
-    "awesome-typescript-loader": "^5.0.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "chalk": "^2.4.1",
+    "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
+    "cross-env": "^5.1.5",
     "css-loader": "^0.28.11",
-    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
     "fs-extra": "^6.0.1",
+    "glob": "^7.1.2",
+    "handlebars-loader": "^1.7.0",
+    "handlebars-template-loader": "^1.0.0",
     "html-webpack-harddisk-plugin": "^0.2.0",
     "html-webpack-plugin": "^3.2.0",
-    "imagemin-webpack-plugin": "^2.1.5",
-    "less": "^3.0.4",
-    "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.0",
+    "optimize-css-assets-webpack-plugin": "^4.0.1",
+    "ora": "^2.1.0",
     "postcss-loader": "^2.1.5",
     "prettier": "^1.12.1",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
-    "typescript": "^2.8.3",
     "uglifyjs-webpack-plugin": "^1.2.5",
+    "url-loader": "^1.0.1",
     "webpack": "^4.8.1",
     "webpack-cli": "^2.1.3",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.4",
+    "webpack-serve": "^0.3.2"
   },
   "dependencies": {
     "jquery": "^3.3.1",
