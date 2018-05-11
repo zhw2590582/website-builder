@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
@@ -8,12 +9,12 @@ const isProd = process.env.NODE_ENV === 'production';
 const name = '{{name}}';
 
 module.exports = {
-	devtool: !isProd && '#eval-source-map',
+	devtool: isProd ? '#source-map' : '#eval-source-map',
 	entry: {
 		main: './src/index.ts'
 	},
 	output: {
-		path: path.join(__dirname, 'docs'),
+		path: path.join(__dirname, 'dist'),
 		filename: name + '/' + name + '.js',
 		libraryTarget: 'umd'
 	},
