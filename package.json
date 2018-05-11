@@ -9,9 +9,8 @@
   ],
   "main": "index.js",
   "scripts": {
-    "dev": "tsc index.ts",
-    "build": "tsc index.ts",
-    "test": "jest"
+    "dev": "dev",
+    "build": "build"
   },
   "keywords": [
     "web",
@@ -32,7 +31,8 @@
     "babel-preset-env": "^1.7.0",
     "css-loader": "^0.28.11",
     "fs-extra": "^6.0.1",
-    "jest": "^22.4.3",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.0",
     "postcss-loader": "^2.1.5",
@@ -43,5 +43,10 @@
     "webpack": "^4.8.1",
     "webpack-cli": "^2.1.3",
     "webpack-dev-server": "^3.1.4"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "normalize.css": "^8.0.0",
+    "swiper": "^4.2.6"
   }
 }

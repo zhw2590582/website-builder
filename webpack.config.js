@@ -18,7 +18,7 @@ module.exports = {
 		libraryTarget: 'umd'
 	},
 	resolve: {
-		extensions: ['.ts', '.js', '.scss']
+		extensions: ['.ts', '.js', '.scss', 'less']
 	},
 	module: {
 		rules: [
@@ -63,6 +63,26 @@ module.exports = {
 					{
 						loader: 'sass-loader',
 						options: {}
+					}
+				]
+			},
+			{
+				test: /\.less$/,
+				use: [
+					'style-loader',
+					{ loader: 'css-loader', options: { importLoaders: 1 } },
+					{
+						loader: 'postcss-loader',
+						options: {
+							autoprefixer: {
+								browsers: ['last 2 versions']
+							},
+							plugins: () => [autoprefixer]
+						}
+					},
+					{
+						loader: 'less-loader',
+						options: { strictMath: true, noIeCompat: true }
 					}
 				]
 			}
