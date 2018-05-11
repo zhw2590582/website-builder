@@ -7,13 +7,10 @@
   "authors": [
     "Harvey Zack <laozhaochaguan@gmail.com>"
   ],
-  "cdnP": {
-    "old": "./",
-    "new": "https://www.baidu.com/"
-  },
   "scripts": {
     "dev": "dev",
-    "build": "build"
+    "build": "build",
+    "publish": "publish"
   },
   "keywords": [
     "web",
