@@ -10,9 +10,9 @@ const autoprefixer = require('autoprefixer');
 const isProd = process.env.NODE_ENV === 'production';
 
 const entry = {
-	vendor: ['jquery'],
 	common: './src/js/common'
 };
+
 const HtmlPlugin = [];
 glob.sync('./src/*.html').forEach(htmlPath => {
 	const filename = path.basename(htmlPath).toLowerCase();
@@ -89,19 +89,13 @@ module.exports = {
 						name: '[name].[ext]'
 					}
 				}]
-			},
-			{
-				test: /\.handlebars$/,
-				use: {
-					loader: 'handlebars-loader'
-				}
 			}
 		]
 	},
 	optimization: {
 		splitChunks: {
-			name: 'vendor',
-			minChunks: 3
+			chunks: 'all',
+			name: 'vendor'
 		}
 	},
 	plugins: [
@@ -117,9 +111,9 @@ module.exports = {
 			}
 		}),
 		new webpack.ProvidePlugin({
-			$: 'jquery',
-			jQuery: 'jquery',
-			'window.jQuery': 'jquery'
+			$: "jquery",
+			jQuery: "jquery",
+			"window.jQuery": "jquery"
 		}),
 		...HtmlPlugin
 	]
