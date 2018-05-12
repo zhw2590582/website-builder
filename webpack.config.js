@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
+const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const pkg = require('./package.json');
 
@@ -110,7 +111,8 @@ const config = {
 			jQuery: "jquery",
 			"window.jQuery": "jquery"
 		}),
-		...HtmlPlugin
+		...HtmlPlugin,
+		new HtmlBeautifyPlugin()
 	]
 };
 
