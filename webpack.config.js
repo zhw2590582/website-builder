@@ -5,8 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
-const ReplaceCdnPlugin = require('./scripts/replaceCdnPlugin');
 const autoprefixer = require('autoprefixer');
+const pkg = require('./package.json');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -34,7 +34,7 @@ const config = {
 	output: {
 		path: path.join(__dirname, './dist'),
 		filename: 'js/[name].js',
-		publicPath: './'
+		publicPath: isProd ? pkg.cdn.new : '/'
 	},
 	resolve: {
 		extensions: ['.js', '.scss', 'less']
@@ -81,8 +81,7 @@ const config = {
 				use: [{
 					loader: 'file-loader',
 					options: {
-						publicPath: './img',
-						name: '[name].[ext]'
+						name: 'img/[name].[ext]'
 					}
 				}]
 			}
@@ -127,7 +126,6 @@ if (isProd) {
 			}]
 		}
 	}));
-	config.plugins.push(new ReplaceCdnPlugin());
 }
 
 module.exports = config;
