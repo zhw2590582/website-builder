@@ -4,9 +4,10 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const FileManagerPlugin = require('filemanager-webpack-plugin');
+const ReplaceCdnPlugin = require('./scripts/replaceCdnPlugin');
 const autoprefixer = require('autoprefixer');
+
 const isProd = process.env.NODE_ENV === 'production';
 
 const entry = {
@@ -27,7 +28,7 @@ glob.sync('./src/*.html').forEach(htmlPath => {
 	}))
 });
 
-module.exports = {
+const config = {
 	mode: isProd ? 'production' : 'development',
 	entry: entry,
 	output: {
@@ -78,14 +79,9 @@ module.exports = {
 			{
 				test: /\.(png|jpg|gif)$/,
 				use: [{
-					loader: 'url-loader',
-					options: {
-						limit: 8192
-					}
-				}, {
 					loader: 'file-loader',
 					options: {
-						outputPath: 'img/',
+						publicPath: './img',
 						name: '[name].[ext]'
 					}
 				}]
@@ -99,7 +95,6 @@ module.exports = {
 		}
 	},
 	plugins: [
-		new CleanWebpackPlugin(['dist']),
 		new MiniCssExtractPlugin({
 			filename: 'css/[name].css'
 		}),
@@ -118,3 +113,21 @@ module.exports = {
 		...HtmlPlugin
 	]
 };
+
+if (isProd) {
+	const backupTime = String(new Date().getTime());
+	config.plugins.push(new FileManagerPlugin({
+		onStart: {
+			delete: ['dist']
+		},
+		onEnd: {
+			copy: [{
+				source: './dist',
+				destination: './backup/' + backupTime
+			}]
+		}
+	}));
+	config.plugins.push(new ReplaceCdnPlugin());
+}
+
+module.exports = config;
