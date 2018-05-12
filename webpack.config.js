@@ -24,6 +24,7 @@ glob.sync('./src/*.html').forEach(htmlPath => {
 		template: htmlPath,
 		inject: 'body',
 		favicon: './src/img/favicon.ico',
+		loader: "raw-loader",
 		chunks: ['vendor', 'common', chunk]
 	}))
 });
@@ -34,7 +35,7 @@ const config = {
 	output: {
 		path: path.join(__dirname, './dist'),
 		filename: 'js/[name].js',
-		publicPath: isProd ? pkg.cdn.new : '/'
+		publicPath: isProd && pkg.cdn ? pkg.cdn : '/'
 	},
 	resolve: {
 		extensions: ['.js', '.scss', 'less']
