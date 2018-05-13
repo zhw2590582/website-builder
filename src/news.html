@@ -1,5 +1,7 @@
-${require('raw-loader!./templete/header.html')}
+<%= require('html-loader!./templete/header.html') %>
 
-<div>news</div>
+<div class="news-page">
+    news-page
+</div>
 
-${require('raw-loader!./templete/footer.html')}
+<%= require('html-loader!./templete/footer.html') %>

@@ -1,5 +1,5 @@
 import '../sass/index.scss';
 
 $(() => {
-    console.log('index');
+    console.log('index2');
 });

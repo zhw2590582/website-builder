@@ -7,6 +7,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const Reload4Plugin = require("@prakriya/reload4-html-webpack-plugin");
 const pkg = require('./package.json');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -21,16 +22,17 @@ glob.sync('./src/*.html').forEach(htmlPath => {
 	const chunk = filename.replace('.html', '');
 	entry[chunk] = `./src/js/${chunk}.js`;
 	HtmlPlugin.push(new HtmlWebpackPlugin({
+		cache: false,
 		filename: filename,
-		template: htmlPath,
+		template: path.resolve(htmlPath),
 		inject: 'body',
 		favicon: './src/img/favicon.ico',
-		loader: "raw-loader",
 		chunks: ['vendor', 'common', chunk]
 	}))
 });
 
 const config = {
+	cache: false,
 	mode: isProd ? 'production' : 'development',
 	entry: entry,
 	output: {
@@ -39,7 +41,7 @@ const config = {
 		publicPath: isProd && pkg.cdn ? pkg.cdn : '/'
 	},
 	resolve: {
-		extensions: ['.js', '.scss', 'less']
+		extensions: ['.js', '.scss']
 	},
 	devtool: isProd ? 'source-map' : 'eval-source-map',
 	module: {
@@ -81,8 +83,9 @@ const config = {
 			{
 				test: /\.(png|jpg|gif)$/,
 				use: [{
-					loader: 'file-loader',
+					loader: 'url-loader',
 					options: {
+						limit: 4096,
 						name: 'img/[name].[ext]'
 					}
 				}]
@@ -129,6 +132,8 @@ if (isProd) {
 			}]
 		}
 	}));
+} else {
+	config.plugins.push(new Reload4Plugin());
 }
 
 module.exports = config;

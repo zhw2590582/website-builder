@@ -1,8 +1,8 @@
-${require('raw-loader!./templete/header.html')}
+<%= require('html-loader!./templete/header.html') %>
 
-<div>
-    index
-    <img src="./img/1.jpg" alt="">
+<div class="index-page">
+    index-page
+    <img src="<%= require('./img/1.jpg') %>" alt="">
 </div>
 
-${require('raw-loader!./templete/footer.html')}
+<%= require('html-loader!./templete/footer.html') %>
