@@ -1,5 +1,5 @@
 # 多页面静态网站生成器
-> webpack、babel、sass、支持多页面、html/js/css模块化、html美化、cdn地址替换、自动刷新、全局jQuery变量、打包历史备份
+> webpack、babel、sass、支持多页面、html/js/css模块分离、html美化、cdn地址替换、自动刷新、全局jQuery变量、打包历史备份
 
 ## 使用
 
