@@ -114,8 +114,7 @@ const config = {
 			jQuery: "jquery",
 			"window.jQuery": "jquery"
 		}),
-		...HtmlPlugin,
-		new HtmlBeautifyPlugin()
+		...HtmlPlugin
 	]
 };
 
@@ -131,7 +130,7 @@ if (isProd) {
 				destination: './backup/' + backupTime
 			}]
 		}
-	}));
+	}), new HtmlBeautifyPlugin());
 } else {
 	config.plugins.push(new Reload4Plugin());
 }
