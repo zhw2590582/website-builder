@@ -1,4 +1,4 @@
-import '../sass/news.scss';
+import '../sass/news';
 import { showLoading, showMessage } from './common';
 
 $(() => {

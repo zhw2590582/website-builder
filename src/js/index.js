@@ -1,4 +1,4 @@
-import '../sass/index.scss';
+import '../sass/index';
 import { showLoading, showMessage } from './common';
 
 $(() => {
