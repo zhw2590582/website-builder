@@ -11,7 +11,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-serve ./webpack.config.js --open",
     "build": "cross-env NODE_ENV=production webpack",
-    "publish": "node publish.js"
+    "add": "node script/add.js",
+    "publish": "node script/publish.js"
   },
   "keywords": [
     "web",

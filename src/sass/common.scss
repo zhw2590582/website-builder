@@ -18,6 +18,7 @@ a {
 
 img {
 	max-width: 100%;
+	vertical-align: top;
 }
 
 .clearfix:after,
@@ -32,6 +33,11 @@ img {
 
 .clearfix {
 	zoom: 1;
+}
+
+.container {
+	width: 1200px;
+	margin: 0 auto;
 }
 
 .hide {

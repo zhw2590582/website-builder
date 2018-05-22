@@ -7,7 +7,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const Reload4Plugin = require("@prakriya/reload4-html-webpack-plugin");
+const Reload4Plugin = require('@prakriya/reload4-html-webpack-plugin');
 const pkg = require('./package.json');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -21,18 +21,18 @@ glob.sync('./src/*.html').forEach(htmlPath => {
 	const filename = path.basename(htmlPath).toLowerCase();
 	const chunk = filename.replace('.html', '');
 	entry[chunk] = `./src/js/${chunk}.js`;
-	HtmlPlugin.push(new HtmlWebpackPlugin({
-		cache: false,
-		filename: filename,
-		template: path.resolve(htmlPath),
-		inject: 'body',
-		favicon: './src/img/favicon.ico',
-		chunks: ['vendor', 'common', chunk]
-	}))
+	HtmlPlugin.push(
+		new HtmlWebpackPlugin({
+			filename: filename,
+			template: path.resolve(htmlPath),
+			inject: 'body',
+			favicon: './src/img/favicon.ico',
+			chunks: ['vendor', 'common', chunk]
+		})
+	);
 });
 
 const config = {
-	cache: false,
 	mode: isProd ? 'production' : 'development',
 	entry: entry,
 	output: {
@@ -45,7 +45,8 @@ const config = {
 	},
 	devtool: isProd ? 'source-map' : 'eval-source-map',
 	module: {
-		rules: [{
+		rules: [
+			{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: {
@@ -82,13 +83,15 @@ const config = {
 			},
 			{
 				test: /\.(png|jpg|gif)$/,
-				use: [{
-					loader: 'url-loader',
-					options: {
-						limit: 4096,
-						name: 'img/[name].[ext]'
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 4096,
+							name: 'img/[name].[ext]'
+						}
 					}
-				}]
+				]
 			}
 		]
 	},
@@ -102,17 +105,10 @@ const config = {
 		new MiniCssExtractPlugin({
 			filename: 'css/[name].css'
 		}),
-		new UglifyJSPlugin({
-			uglifyOptions: {
-				compress: {
-					warnings: false
-				}
-			}
-		}),
 		new webpack.ProvidePlugin({
-			$: "jquery",
-			jQuery: "jquery",
-			"window.jQuery": "jquery"
+			$: 'jquery',
+			jQuery: 'jquery',
+			'window.jQuery': 'jquery'
 		}),
 		...HtmlPlugin
 	]
@@ -120,17 +116,29 @@ const config = {
 
 if (isProd) {
 	const backupTime = String(new Date().getTime());
-	config.plugins.push(new FileManagerPlugin({
-		onStart: {
-			delete: ['dist']
-		},
-		onEnd: {
-			copy: [{
-				source: './dist',
-				destination: './backup/' + backupTime
-			}]
-		}
-	}), new HtmlBeautifyPlugin());
+	config.plugins.push(
+		new UglifyJSPlugin({
+			uglifyOptions: {
+				compress: {
+					warnings: false
+				}
+			}
+		}),
+		new FileManagerPlugin({
+			onStart: {
+				delete: ['dist']
+			},
+			onEnd: {
+				copy: [
+					{
+						source: './dist',
+						destination: './backup/' + backupTime
+					}
+				]
+			}
+		}),
+		new HtmlBeautifyPlugin()
+	);
 } else {
 	config.plugins.push(new Reload4Plugin());
 }
