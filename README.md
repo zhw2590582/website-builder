@@ -17,6 +17,12 @@ $ npm install
 $ npm run dev
 ```
 
+添加
+
+```sh
+$ npm run add pageName
+```
+
 打包
 
 ```sh
