@@ -27,11 +27,13 @@
   },
   "homepage": "https://github.com/zhw2590582/web-generator#readme",
   "devDependencies": {
+    "@sindresorhus/slugify": "^0.3.0",
     "@prakriya/reload4-html-webpack-plugin": "^1.0.2",
     "autoprefixer": "^8.4.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
+    "chalk": "^2.4.1",
     "cross-env": "^5.1.5",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
@@ -44,6 +46,7 @@
     "node-sass": "^4.9.0",
     "postcss-loader": "^2.1.5",
     "sass-loader": "^7.0.1",
+    "simple-progress-webpack-plugin": "^1.1.2",
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "url-loader": "^1.0.1",
@@ -52,9 +55,7 @@
     "webpack-serve": "^0.3.2"
   },
   "dependencies": {
-    "@sindresorhus/slugify": "^0.3.0",
     "animate.css": "^3.6.1",
-    "chalk": "^2.4.1",
     "jquery": "^3.3.1",
     "normalize.css": "^8.0.0",
     "scrollreveal": "^3.4.0",

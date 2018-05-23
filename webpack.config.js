@@ -8,6 +8,7 @@ const FileManagerPlugin = require('filemanager-webpack-plugin');
 const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const Reload4Plugin = require('@prakriya/reload4-html-webpack-plugin');
+const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
 const pkg = require('./package.json');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -117,6 +118,9 @@ const config = {
 if (isProd) {
 	const backupTime = String(new Date().getTime());
 	config.plugins.push(
+		new SimpleProgressWebpackPlugin({
+			format: 'minimal'
+		}),
 		new UglifyJSPlugin({
 			uglifyOptions: {
 				compress: {
