@@ -1,10 +1,14 @@
 const fs = require('fs');
 const path = require('path');
+const chalk = require('chalk');
+const slugify = require('@sindresorhus/slugify');
+let page = process.argv[2];
 
-const page = process.argv[2];
-if (!page){
-    console.warn('请输入需要被初始化的页面名称: npm run add pageName');
-    return;
+if (!page) {
+	console.log(chalk.red('请输入需要被初始化的页面名称: npm run add pageName'));
+	process.exit();
+} else {
+	page = slugify(page);
 }
 
 const creatFile = {
@@ -27,5 +31,6 @@ Object.keys(creatFile).forEach(file => {
 	const fileData = creatFile[file].data;
 	if (!fs.existsSync(filePath)) {
 		fs.writeFileSync(filePath, fileData);
+		console.log(chalk.green(`成功创建：${filePath}`));
 	}
 });

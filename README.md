@@ -17,10 +17,16 @@ $ npm install
 $ npm run dev
 ```
 
-添加
+添加页面
 
 ```sh
 $ npm run add pageName
+```
+
+删除页面
+
+```sh
+$ npm run remove pageName
 ```
 
 打包
