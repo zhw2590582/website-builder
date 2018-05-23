@@ -10,7 +10,7 @@ const autoprefixer = require('autoprefixer');
 const Reload4Plugin = require('@prakriya/reload4-html-webpack-plugin');
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
 const pkg = require('./package.json');
-
+const cdn = pkg.cdn.trim();
 const isProd = process.env.NODE_ENV === 'production';
 
 const entry = {
@@ -39,7 +39,7 @@ const config = {
 	output: {
 		path: path.join(__dirname, './dist'),
 		filename: 'js/[name].js',
-		publicPath: isProd && pkg.cdn ? pkg.cdn : '/'
+		publicPath: isProd && cdn ? cdn : '/'
 	},
 	resolve: {
 		extensions: ['.js', '.scss']
