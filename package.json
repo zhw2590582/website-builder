@@ -14,6 +14,7 @@
     "build": "cross-env NODE_ENV=production webpack",
     "add": "node script/add.js",
     "remove": "node script/remove.js",
+    "open": "node script/open.js",
     "publish": "node script/publish.js"
   },
   "keywords": [
@@ -46,6 +47,7 @@
     "image-webpack-loader": "^4.2.0",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.0",
+    "opn": "^5.3.0",
     "postcss-loader": "^2.1.5",
     "sass-loader": "^7.0.1",
     "simple-progress-webpack-plugin": "^1.1.2",
