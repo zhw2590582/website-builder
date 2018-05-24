@@ -87,9 +87,8 @@ const config = {
 				test: /\.(png|jpg|gif)$/,
 				use: [
 					{
-						loader: 'url-loader',
+						loader: 'file-loader',
 						options: {
-							limit: 4096,
 							name: hash ? 'img/[name]-[hash].[ext]' : 'img/[name].[ext]'
 						}
 					},
