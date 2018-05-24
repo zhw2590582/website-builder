@@ -91,6 +91,12 @@ const config = {
 							limit: 4096,
 							name: 'img/[name].[ext]'
 						}
+					},
+					{
+						loader: 'image-webpack-loader',
+						options: {
+						  bypassOnDebug: true
+						}
 					}
 				]
 			}

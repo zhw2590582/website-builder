@@ -18,11 +18,11 @@ const creatFile = {
 	},
 	scss: {
 		path: path.resolve('./src/sass', page + '.scss'),
-		data: `@charset "UTF-8";\n\n.index-page{\n\n}`
+		data: `@charset "UTF-8";\n\n.index-page {\n\n}`
 	},
 	js: {
 		path: path.resolve('./src/js', page + '.js'),
-		data: `import '../sass/${page}';\nimport { showLoading, showMessage } from './common';\n\n$(() => {\n    console.log('${page}');\n});`
+		data: `import '../sass/${page}';\nimport { showLoading, showMessage } from './common';\n\n$(() => {\n    console.log('${page}-page');\n});`
 	}
 };
 

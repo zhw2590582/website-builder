@@ -2,5 +2,5 @@ import '../sass/index';
 import { showLoading, showMessage } from './common';
 
 $(() => {
-    console.log('index');
+    console.log('index-page');
 });
