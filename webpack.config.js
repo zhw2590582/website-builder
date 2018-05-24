@@ -12,6 +12,7 @@ const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
 const pkg = require('./package.json');
 const cdn = pkg.cdn.trim();
 const isProd = process.env.NODE_ENV === 'production';
+const hash = pkg.hash && isProd;
 
 const entry = {
 	common: './src/js/common'
@@ -38,7 +39,7 @@ const config = {
 	entry: entry,
 	output: {
 		path: path.join(__dirname, './dist'),
-		filename: 'js/[name].js',
+		filename: hash ? 'js/[name]-[hash].js' : 'js/[name].js',
 		publicPath: isProd && cdn ? cdn : '/'
 	},
 	resolve: {
@@ -89,13 +90,13 @@ const config = {
 						loader: 'url-loader',
 						options: {
 							limit: 4096,
-							name: 'img/[name].[ext]'
+							name: hash ? 'img/[name]-[hash].[ext]' : 'img/[name].[ext]'
 						}
 					},
 					{
 						loader: 'image-webpack-loader',
 						options: {
-						  bypassOnDebug: true
+							bypassOnDebug: true
 						}
 					}
 				]
@@ -110,7 +111,7 @@ const config = {
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: 'css/[name].css'
+			filename: hash ? 'css/[name]-[hash].css' : 'css/[name].css'
 		}),
 		new webpack.ProvidePlugin({
 			$: 'jquery',
