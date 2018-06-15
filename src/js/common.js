@@ -1,5 +1,9 @@
 import 'normalize.css';
 import '../sass/common';
+import fastclick from 'fastclick';
+
+// 去掉点击延迟300秒
+fastclick.attach(document.body);
 
 // Rem 自适应
 $('html').css('font-size', document.documentElement.clientWidth / 375 * 312.5 + '%');
@@ -12,18 +16,6 @@ $(document).on('click','.pop_bg', function(e){
   if ($(e.target).closest('.pop_inner').length === 0 || $(e.target).hasClass('pop_close')) {
     $(this).closest('.pop_bg').hide();
   }
-});
-
-// Video 播放
-$(document).on('click', '[video-data]', function(e){
-    $(".video_bg").show();
-    $('.video_box').append('<video controls autoplay="autoplay" loop="loop" src="' + $(this).data('video') + '"></video>');
-    return false;
-});
-
-$(document).on('click', '.video_close', function(e){
-    $(".video_bg").hide();
-    $('.video_box').html('');
 });
 
 // Tab 切换
@@ -46,7 +38,7 @@ export function showMessage(info, time) {
   $('body').append('<div id="msg' + id + '" class="showMessage">' + info + '</div>');
   setTimeout(function() {
     $('#msg' + id).remove();
-  }, time || 2000);
+  }, time || 1500);
 }
 
 // Loading 显示
