@@ -1,5 +1,5 @@
 // Tip 提示
-export default function message(info, time) {
+export default function showMessage(info, time) {
 	if (typeof info !== 'string') {
 		info = JSON.stringify(info);
 	}

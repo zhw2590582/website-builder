@@ -1,6 +1,6 @@
 import '../sass/index';
-import loading from './utils/loading';
-import message from './utils/message';
+import showLoading from './utils/showLoading';
+import showMessage from './utils/showMessage';
 
 $(() => {
     console.log('index-page');

@@ -1,4 +1,4 @@
-import { message } from './message';
+import showMessage from './showMessage';
 
 export default class Timer {
 	constructor(el, second = 60) {
@@ -6,7 +6,7 @@ export default class Timer {
 		this.second = second;
         this.state = true;
         $(this.el).addClass('disabled');
-        message('已发送手机验证！');
+        showMessage('已发送手机验证！');
         this.setTime();
 	}
 

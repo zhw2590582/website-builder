@@ -1,13 +1,13 @@
-import { loading } from './loading';
+import showLoading from './showLoading';
 import Timer from './timer';
 
 $.ajaxSetup({
 	timeout: 5000,
 	complete: () => {
-		loading(false);
+		showLoading(false);
 	},
 	beforeSend: () => {
-		loading();
+		showLoading();
 	}
 });
 
