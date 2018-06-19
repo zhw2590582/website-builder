@@ -7,4 +7,3 @@ import '../sass/utils/pc';
 // 移动端
 import '../sass/utils/mobile';
 import './utils/mobile';
-import { isFirstDayOfMonth } from 'date-fns';
