@@ -22,7 +22,7 @@ const creatFile = {
 	},
 	js: {
 		path: path.resolve('./src/js', page + '.js'),
-		data: `import '../sass/${page}';\nimport { showLoading, showMessage } from './common';\n\n$(() => {\n    console.log('${page}-page');\n});`
+		data: `import '../sass/${page}';\nimport loading from './utils/loading';\nimport message from './utils/message';\n\n$(() => {\n    console.log('${page}-page');\n});`
 	}
 };
 
