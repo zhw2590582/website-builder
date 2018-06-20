@@ -3,6 +3,8 @@ import Timer from './timer';
 
 $.ajaxSetup({
 	timeout: 5000,
+	dataType: 'jsonp',
+	jsonp: 'callback',
 	complete: () => {
 		showLoading(false);
 	},
@@ -18,9 +20,6 @@ export function subscribe(data, success, error) {
 		type: 'get',
 		url: 'http://user-hub.xianyugame.com/api/subscribe/',
 		data: data,
-		dataType: 'jsonp',
-		crossDomain: true,
-		jsonp: 'callback',
 		success: success,
 		error: error
 	});
@@ -34,12 +33,9 @@ export function sendCode(data, success, error, el) {
 		type: 'get',
 		url: 'http://user-hub.xianyugame.com/api/send_vcode/',
 		data: data,
-		dataType: 'jsonp',
-		crossDomain: true,
-		jsonp: 'callback',
 		success: data => {
             new Timer(el);
-            success(data);
+            success && success(data);
         },
 		error: error
 	});
@@ -52,9 +48,6 @@ export function verifyCode(data, success, error) {
 		type: 'get',
 		url: 'http://user-hub.xianyugame.com/api/verify/',
 		data: data,
-		dataType: 'jsonp',
-		crossDomain: true,
-		jsonp: 'callback',
 		success: success,
 		error: error
 	});
@@ -67,9 +60,6 @@ export function giftCode(data, success, error) {
 		type: 'get',
 		url: 'http://gift-hub.xianyugame.com/api/gift_code/',
 		data: data,
-		dataType: 'jsonp',
-		crossDomain: true,
-		jsonp: 'callback',
 		success: success,
 		error: error
 	});
