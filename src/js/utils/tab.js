@@ -17,7 +17,7 @@
 
 $(document).on('click', '.tab-bar .item', function(e) {
 	if (
-		$(target)
+		$(e.target)
 			.data()
 			.hasOwnProperty('redirect')
 	) {

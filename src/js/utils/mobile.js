@@ -2,7 +2,7 @@ import fastclick from 'fastclick';
 import { getURLParameters } from './url';
 import debounce from './debounce';
 
-// Debug 模式
+// Debug 模式：/?debug=1
 const { debug } = getURLParameters();
 if (debug) {
 	var script = document.createElement('script');
