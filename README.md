@@ -41,13 +41,27 @@ $ npm run build
 $ npm run publish
 ```
 
-配置
+## 配置
 
 ```js
 // 在 package.json 中配置，只有在打包时生效
-// hash: 是否开启文件 hash 值命名
-// cdn: CDN 地址
+
+{
+    hash: false, // 是否开启文件 hash 值命名
+    cdn: 'https://github.com/' //CDN 地址
+}
+
 ```
+
+## 注意
+* `sass/common.scss` 和 `js/common.js` 为公用文件，每个页面都会加载到。
+* 每个页面对应一个三个文件，例如：`index.html`、`sass/index.scss`、`js/index.js`。
+* 项目需区分桌面端和移动端，在`src/js/common.js` 中，需手动区分加载平台所需文件。
+* 在 `sass/utils/mobile.scss`、`sass/utils/pc.scss`,对应移动端和桌面端样式文件。
+* 在 `sass/utils/variable.scss`，保存了全局的公用样式变量。
+* 移动端单位，设计稿像素值除以`100`即可，例如设计稿的`100px`，对应为`1rem`。
+* 在移动端的url地址里，debug参数不为空时，会调出调试工具。
+
 
 ## License
 

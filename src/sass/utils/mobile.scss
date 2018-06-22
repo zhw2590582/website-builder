@@ -1,6 +1,50 @@
 @charset "UTF-8";
 @import './variable';
 
+html {
+	font-size: 312.5%;
+}
+@media screen and (max-width: 359px) and (orientation: portrait) {
+	html {
+		font-size: 266.67%;
+	}
+}
+@media screen and (min-width: 360px) and (max-width: 374px) and (orientation: portrait) {
+	html {
+		font-size: 300%;
+	}
+}
+@media screen and (min-width: 384px) and (max-width: 399px) and (orientation: portrait) {
+	html {
+		font-size: 320%;
+	}
+}
+@media screen and (min-width: 400px) and (max-width: 413px) and (orientation: portrait) {
+	html {
+		font-size: 333.33%;
+	}
+}
+@media screen and (min-width: 414px) and (max-width: 431px) and (orientation: portrait) {
+	html {
+		font-size: 345%;
+	}
+}
+@media screen and (min-width: 432px) and (max-width: 479px) and (orientation: portrait) {
+	html {
+		font-size: 360%;
+	}
+}
+@media screen and (min-width: 480px) and (max-width: 639px) and (orientation: portrait) {
+	html {
+		font-size: 400%;
+	}
+}
+@media screen and (min-width: 640px) and (orientation: portrait) {
+	html {
+		font-size: 533.33%;
+	}
+}
+
 .f12 {
 	font-size: 0.28rem;
 	transform: scale(0.9);
@@ -32,9 +76,9 @@
 
 .showMessage {
 	position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	z-index: 99;
 	width: 5rem;
 	min-height: 0.8rem;
@@ -49,9 +93,9 @@
 
 .showLoading {
 	position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	z-index: 100;
 	width: 1rem;
 	height: 1rem;
@@ -62,4 +106,24 @@
 	background-size: 60%;
 	background-position: center center;
 	border-radius: 5px;
+}
+
+#forhorview {
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.8);
+	display: none;
+	p {
+		height: 100%;
+		color: #fff;
+		font-size: .36rem;
+		text-align: center;
+		position: relative;
+		top: 50%;
+		margin: -.36rem
+	}
 }

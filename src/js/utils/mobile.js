@@ -1,5 +1,6 @@
 import fastclick from 'fastclick';
 import { getURLParameters } from './url';
+import debounce from './debounce';
 
 // Debug 模式
 const { debug } = getURLParameters();
@@ -16,14 +17,28 @@ if (debug) {
 fastclick.attach(document.body);
 
 // Rem 自适应
-$('html').css(
-	'font-size',
-	(document.documentElement.clientWidth / 375) * 312.5 + '%'
-);
-
-window.onresize = function() {
+// 注：设计稿的 100px 等于 1rem
+function initScreen() {
 	$('html').css(
 		'font-size',
 		(document.documentElement.clientWidth / 375) * 312.5 + '%'
 	);
-};
+}
+
+initScreen();
+window.addEventListener('resize', debounce(initScreen, 300));
+
+// 横屏提醒
+function forhorview() {
+	if ($('#forhorview').length == 0) {
+		$('body').append("<div id='forhorview'><p>推荐使用竖屏浏览哦~</p></div>");
+	}
+	if (window.orientation == 90 || window.orientation == -90) {
+		$('#forhorview').show();
+	} else {
+		$('#forhorview').hide();
+	}
+}
+
+forhorview();
+window.addEventListener('orientationchange', forhorview);
