@@ -61,6 +61,7 @@ $ npm run publish
 * 在 `sass/utils/variable.scss`，保存了全局的公用样式变量。
 * 移动端单位，设计稿像素值除以`100`即可，例如设计稿的`100px`，对应为`1rem`。
 * 在移动端的url地址里，debug参数不为空时，会调出调试工具。
+* 在根页面里插入`img`图片时，请使用`<img src="<%= require('./img/logo.png') %>">`，但在`templete`页面里则不需要。
 
 
 ## License
