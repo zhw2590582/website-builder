@@ -1,0 +1,5 @@
+@charset "UTF-8";
+
+@mixin radius($size: 5px) {
+    border-radius: $size;
+}

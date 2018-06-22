@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import './utils/variable';
+@import './utils/mixin';
 
 body {
 	font-family: PingFang SC, Lantinghei SC, Helvetica Neue, Helvetica, Arial,
@@ -137,4 +138,18 @@ img {
 			position: absolute;
 		}
 	}
+}
+
+.variable-test {
+	color: $color-black;
+}
+
+.extend-test {
+	@extend .flex;
+	@extend .flex_vc;
+	@extend .flex_hc;
+}
+
+.include-test {
+	@include radius(10px);
 }
