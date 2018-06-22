@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import './utils/color';
+@import './utils/variable';
 
 body {
 	font-family: PingFang SC, Lantinghei SC, Helvetica Neue, Helvetica, Arial,
@@ -117,4 +117,24 @@ img {
 
 .fb {
 	font-weight: bold;
+}
+
+.modal-wrap {
+	display: none;
+	position: fixed;
+	z-index: 20;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	overflow-y: scroll;
+	.modal-inner {
+		position: relative;
+		.modal-close {
+			position: absolute;
+		}
+	}
 }

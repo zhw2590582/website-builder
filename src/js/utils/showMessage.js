@@ -10,6 +10,8 @@ export default function showMessage(info, time) {
 		'<div id="msg' + id + '" class="showMessage">' + info + '</div>'
 	);
 	setTimeout(function() {
-		$('#msg' + id).remove();
+		$('#msg' + id).fadeOut(200, function () {
+			$(this).remove();
+		});
 	}, time || 1500);
 }
