@@ -2,6 +2,7 @@ import showLoading from './showLoading';
 import Timer from './timer';
 
 $.ajaxSetup({
+	type: 'get',
 	timeout: 5000,
 	dataType: 'jsonp',
 	jsonp: 'callback',
@@ -17,11 +18,10 @@ $.ajaxSetup({
 // data: tel、game_id、platform(iOS\Android)
 export function subscribe(data, success, error) {
 	$.ajax({
-		type: 'get',
 		url: 'http://user-hub.xianyugame.com/api/subscribe/',
-		data: data,
-		success: success,
-		error: error
+		data,
+		success,
+		error
 	});
 }
 
@@ -30,14 +30,13 @@ export function subscribe(data, success, error) {
 export function sendCode(data, success, error, el) {
     if ($(el).hasClass('disabled')) return;
 	$.ajax({
-		type: 'get',
 		url: 'http://user-hub.xianyugame.com/api/send_vcode/',
-		data: data,
+		data,
 		success: data => {
             new Timer(el);
             success && success(data);
         },
-		error: error
+		error
 	});
 }
 
@@ -45,11 +44,10 @@ export function sendCode(data, success, error, el) {
 // data: tel、vcode、platform(iOS\Android)、game_id
 export function verifyCode(data, success, error) {
 	$.ajax({
-		type: 'get',
 		url: 'http://user-hub.xianyugame.com/api/verify/',
-		data: data,
-		success: success,
-		error: error
+		data,
+		success,
+		error
 	});
 }
 
@@ -57,10 +55,9 @@ export function verifyCode(data, success, error) {
 // data: user_id、game_id、tel
 export function giftCode(data, success, error) {
 	$.ajax({
-		type: 'get',
 		url: 'http://gift-hub.xianyugame.com/api/gift_code/',
-		data: data,
-		success: success,
-		error: error
+		data,
+		success,
+		error
 	});
 }
