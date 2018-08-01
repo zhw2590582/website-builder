@@ -2,7 +2,7 @@
   "name": "web-generator",
   "version": "1.0.0",
   "description": "多页面静态网站生成器",
-  "i18n": false,
+  "i18n": true,
   "hash": false,
   "cdn": "https://github.com/",
   "license": "MIT",
@@ -11,7 +11,7 @@
     "Harvey Zack <laozhaochaguan@gmail.com>"
   ],
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-serve ./webpack.config.js --open",
+    "dev": "cross-env NODE_ENV=development webpack-serve --config ./webpack.config.js --open",
     "build": "cross-env NODE_ENV=production webpack",
     "add": "node script/add.js",
     "remove": "node script/remove.js",
@@ -44,6 +44,7 @@
     "glob": "^7.1.2",
     "html-beautify-webpack-plugin": "^1.0.5",
     "html-loader": "^0.5.5",
+    "html-replace-webpack-plugin": "^2.5.2",
     "html-webpack-plugin": "^3.2.0",
     "i18n-webpack-plugin": "^1.0.0",
     "image-webpack-loader": "^4.2.0",
@@ -53,6 +54,7 @@
     "postcss-loader": "^2.1.5",
     "sass-loader": "^7.0.1",
     "simple-progress-webpack-plugin": "^1.1.2",
+    "string-replace-webpack-plugin": "^0.1.3",
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.8.1",

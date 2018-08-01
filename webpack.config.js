@@ -1,63 +1,63 @@
-const path = require('path');
-const glob = require('glob');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const FileManagerPlugin = require('filemanager-webpack-plugin');
-const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
-const autoprefixer = require('autoprefixer');
-const Reload4Plugin = require('@prakriya/reload4-html-webpack-plugin');
-const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
-const I18nPlugin = require("i18n-webpack-plugin");
-const languages = require("./src/languages")
-const pkg = require('./package.json');
+const path = require("path");
+const glob = require("glob");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+const FileManagerPlugin = require("filemanager-webpack-plugin");
+const HtmlBeautifyPlugin = require("html-beautify-webpack-plugin");
+const autoprefixer = require("autoprefixer");
+const Reload4Plugin = require("@prakriya/reload4-html-webpack-plugin");
+const HtmlReplaceWebpackPlugin = require("html-replace-webpack-plugin");
+const SimpleProgressWebpackPlugin = require("simple-progress-webpack-plugin");
+const pkg = require("./package.json");
 const cdn = pkg.cdn.trim();
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === "production";
 const hash = pkg.hash && isProd;
 const i18n = pkg.i18n;
+const languages = require("./src/languages");
 
 const entry = {
-	common: './src/js/common'
+	common: "./src/js/common"
 };
 
 const HtmlPlugin = [];
-glob.sync('./src/*.html').forEach(htmlPath => {
+glob.sync("./src/*.html").forEach(htmlPath => {
 	const filename = path.basename(htmlPath).toLowerCase();
-	const chunk = filename.replace('.html', '');
+	const chunk = filename.replace(".html", "");
 	entry[chunk] = `./src/js/${chunk}.js`;
 	HtmlPlugin.push(
 		new HtmlWebpackPlugin({
 			filename: filename,
 			template: path.resolve(htmlPath),
-			inject: 'body',
-			favicon: './src/img/favicon.ico',
-			chunks: ['vendor', 'common', chunk]
+			inject: "body",
+			favicon: "./src/img/favicon.ico",
+			chunks: ["vendor", "common", chunk]
 		})
 	);
 });
 
 const config = {
-	mode: isProd ? 'production' : 'development',
+	mode: isProd ? "production" : "development",
 	entry: entry,
 	output: {
-		path: path.join(__dirname, './dist'),
-		filename: hash ? 'js/[name]-[hash].js' : 'js/[name].js',
-		publicPath: isProd && cdn ? cdn : '/'
+		path: path.join(__dirname, "./dist"),
+		filename: hash ? "js/[name]-[hash].js" : "js/[name].js",
+		publicPath: isProd && cdn ? cdn : "/"
 	},
 	resolve: {
-		extensions: ['.js', '.scss']
+		extensions: [".js", ".scss"]
 	},
-	devtool: isProd ? 'source-map' : 'eval-source-map',
+	devtool: isProd ? "source-map" : "eval-source-map",
 	module: {
 		rules: [
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: {
-					loader: 'babel-loader',
+					loader: "babel-loader",
 					options: {
-						presets: ['env']
+						presets: ["env"]
 					}
 				}
 			},
@@ -66,22 +66,22 @@ const config = {
 				use: [
 					MiniCssExtractPlugin.loader,
 					{
-						loader: 'css-loader',
+						loader: "css-loader",
 						options: {
 							minimize: true
 						}
 					},
 					{
-						loader: 'postcss-loader',
+						loader: "postcss-loader",
 						options: {
 							autoprefixer: {
-								browsers: ['last 2 versions']
+								browsers: ["last 2 versions"]
 							},
 							plugins: () => [autoprefixer]
 						}
 					},
 					{
-						loader: 'sass-loader',
+						loader: "sass-loader",
 						options: {}
 					}
 				]
@@ -90,13 +90,13 @@ const config = {
 				test: /\.(png|jpg|gif)$/,
 				use: [
 					{
-						loader: 'file-loader',
+						loader: "file-loader",
 						options: {
-							name: hash ? 'img/[name]-[hash].[ext]' : 'img/[name].[ext]'
+							name: hash ? "img/[name]-[hash].[ext]" : "img/[name].[ext]"
 						}
 					},
 					{
-						loader: 'image-webpack-loader',
+						loader: "image-webpack-loader",
 						options: {
 							bypassOnDebug: true
 						}
@@ -107,18 +107,18 @@ const config = {
 	},
 	optimization: {
 		splitChunks: {
-			chunks: 'all',
-			name: 'vendor'
+			chunks: "all",
+			name: "vendor"
 		}
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: hash ? 'css/[name]-[hash].css' : 'css/[name].css'
+			filename: hash ? "css/[name]-[hash].css" : "css/[name].css"
 		}),
 		new webpack.ProvidePlugin({
-			$: 'jquery',
-			jQuery: 'jquery',
-			'window.jQuery': 'jquery'
+			$: "jquery",
+			jQuery: "jquery",
+			"window.jQuery": "jquery"
 		}),
 		...HtmlPlugin
 	]
@@ -128,7 +128,7 @@ if (isProd) {
 	const backupTime = String(new Date().getTime());
 	config.plugins.push(
 		new SimpleProgressWebpackPlugin({
-			format: 'minimal'
+			format: "minimal"
 		}),
 		new UglifyJSPlugin({
 			uglifyOptions: {
@@ -139,13 +139,13 @@ if (isProd) {
 		}),
 		new FileManagerPlugin({
 			onStart: {
-				delete: ['dist']
+				delete: ["dist"]
 			},
 			onEnd: {
 				copy: [
 					{
-						source: './dist',
-						destination: './backup/' + backupTime
+						source: "./dist",
+						destination: "./backup/" + backupTime
 					}
 				]
 			}
@@ -157,15 +157,16 @@ if (isProd) {
 }
 
 if (i18n) {
-	const defaultLanguage = languages.default;
-	module.exports = Object.keys(languages).map(language => {
-		config.name = language;
-		config.plugins.push(new I18nPlugin(languages[language]));
-		if (defaultLanguage !== language) {
-			config.output.filename = language + '/' + config.output.filename;
-		}
-		return config;
-	});
-} else {
-	module.exports = config;
+	config.plugins.push(
+		new HtmlReplaceWebpackPlugin([
+			{
+				pattern: /_\((\w*?)\)/ig,
+				replacement: function(match, $1) {
+					return languages['en'][$1];
+				}
+			}
+		])
+	);
 }
+
+module.exports = config;
