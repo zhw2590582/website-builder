@@ -9,10 +9,13 @@ const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const Reload4Plugin = require('@prakriya/reload4-html-webpack-plugin');
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
+const I18nPlugin = require("i18n-webpack-plugin");
+const languages = require("./src/languages")
 const pkg = require('./package.json');
 const cdn = pkg.cdn.trim();
 const isProd = process.env.NODE_ENV === 'production';
 const hash = pkg.hash && isProd;
+const i18n = pkg.i18n;
 
 const entry = {
 	common: './src/js/common'
@@ -153,4 +156,16 @@ if (isProd) {
 	config.plugins.push(new Reload4Plugin());
 }
 
-module.exports = config;
+if (i18n) {
+	const defaultLanguage = languages.default;
+	module.exports = Object.keys(languages).map(language => {
+		config.name = language;
+		config.plugins.push(new I18nPlugin(languages[language]));
+		if (defaultLanguage !== language) {
+			config.output.filename = language + '/' + config.output.filename;
+		}
+		return config;
+	});
+} else {
+	module.exports = config;
+}
