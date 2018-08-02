@@ -5,5 +5,5 @@ import '../sass/common';
 // import '../sass/utils/pc';
 
 // 移动端
-import './utils/mobile';
-import '../sass/utils/mobile';
+// import './utils/mobile';
+// import '../sass/utils/mobile';

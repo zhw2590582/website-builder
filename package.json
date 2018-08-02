@@ -2,7 +2,6 @@
   "name": "web-generator",
   "version": "1.0.0",
   "description": "多页面静态网站生成器",
-  "i18n": true,
   "hash": false,
   "cdn": "https://github.com/",
   "license": "MIT",

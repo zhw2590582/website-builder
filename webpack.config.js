@@ -8,14 +8,12 @@ const FileManagerPlugin = require("filemanager-webpack-plugin");
 const HtmlBeautifyPlugin = require("html-beautify-webpack-plugin");
 const autoprefixer = require("autoprefixer");
 const Reload4Plugin = require("@prakriya/reload4-html-webpack-plugin");
-const HtmlReplaceWebpackPlugin = require("html-replace-webpack-plugin");
 const SimpleProgressWebpackPlugin = require("simple-progress-webpack-plugin");
 const pkg = require("./package.json");
 const cdn = pkg.cdn.trim();
 const isProd = process.env.NODE_ENV === "production";
 const hash = pkg.hash && isProd;
 const i18n = pkg.i18n;
-const languages = require("./src/languages");
 
 const entry = {
 	common: "./src/js/common"
@@ -154,19 +152,6 @@ if (isProd) {
 	);
 } else {
 	config.plugins.push(new Reload4Plugin());
-}
-
-if (i18n) {
-	config.plugins.push(
-		new HtmlReplaceWebpackPlugin([
-			{
-				pattern: /_\((\w*?)\)/ig,
-				replacement: function(match, $1) {
-					return languages['en'][$1];
-				}
-			}
-		])
-	);
 }
 
 module.exports = config;
