@@ -9,8 +9,11 @@ const HtmlBeautifyPlugin = require("html-beautify-webpack-plugin");
 const autoprefixer = require("autoprefixer");
 const Reload4Plugin = require("@prakriya/reload4-html-webpack-plugin");
 const SimpleProgressWebpackPlugin = require("simple-progress-webpack-plugin");
+const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin')
 const isProd = process.env.NODE_ENV === "production";
-const { hash, htmlBeautify, cdn } = require("./config");
+const { hash, htmlBeautify, cdn, htmlReplace, i18n } = require("./config");
+
+const MyPlugin = require('./MyPlugin');
 
 const entry = {
 	common: "./src/js/common"
@@ -118,6 +121,14 @@ const webpackConfig = {
 		...HtmlPlugin
 	]
 };
+
+if (htmlReplace) {
+	webpackConfig.plugins.push(new HtmlReplaceWebpackPlugin(htmlReplace))
+}
+
+if (i18n) {
+	webpackConfig.plugins.push(new MyPlugin(i18n))
+}
 
 if (isProd) {
 	const backupTime = String(new Date().getTime());
