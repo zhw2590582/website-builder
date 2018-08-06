@@ -1,6 +1,6 @@
 module.exports = {
-    i18n: false,
-	hash: false,
+    hash: false,
+    htmlBeautify: false,
     cdn: "https://github.com/"
 };
 

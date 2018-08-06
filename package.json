@@ -12,7 +12,6 @@
     "build": "cross-env NODE_ENV=production webpack",
     "add": "node script/add.js",
     "remove": "node script/remove.js",
-    "open": "node script/open.js",
     "publish": "node script/publish.js"
   },
   "keywords": [

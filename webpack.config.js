@@ -10,10 +10,7 @@ const autoprefixer = require("autoprefixer");
 const Reload4Plugin = require("@prakriya/reload4-html-webpack-plugin");
 const SimpleProgressWebpackPlugin = require("simple-progress-webpack-plugin");
 const isProd = process.env.NODE_ENV === "production";
-const config = require("./config");
-const cdn = config.cdn.trim();
-const hash = config.hash && isProd;
-const i18n = config.i18n;
+const { hash, htmlBeautify, cdn } = require("./config");
 
 const entry = {
 	common: "./src/js/common"
@@ -40,7 +37,7 @@ const webpackConfig = {
 	entry: entry,
 	output: {
 		path: path.join(__dirname, "./dist"),
-		filename: hash ? "js/[name]-[hash].js" : "js/[name].js",
+		filename: isProd && hash ? "js/[name]-[hash].js" : "js/[name].js",
 		publicPath: isProd && cdn ? cdn : "/"
 	},
 	resolve: {
@@ -90,7 +87,7 @@ const webpackConfig = {
 					{
 						loader: "file-loader",
 						options: {
-							name: hash ? "img/[name]-[hash].[ext]" : "img/[name].[ext]"
+							name: isProd && hash ? "img/[name]-[hash].[ext]" : "img/[name].[ext]"
 						}
 					},
 					{
@@ -111,7 +108,7 @@ const webpackConfig = {
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: hash ? "css/[name]-[hash].css" : "css/[name].css"
+			filename: isProd && hash ? "css/[name]-[hash].css" : "css/[name].css"
 		}),
 		new webpack.ProvidePlugin({
 			$: "jquery",
@@ -148,8 +145,10 @@ if (isProd) {
 				]
 			}
 		}),
-		new HtmlBeautifyPlugin()
 	);
+	if (htmlBeautify) {
+		webpackConfig.plugins.push(new HtmlBeautifyPlugin());
+	}
 } else {
 	webpackConfig.plugins.push(new Reload4Plugin());
 }
