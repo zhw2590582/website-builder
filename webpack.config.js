@@ -13,7 +13,7 @@ const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin')
 const isProd = process.env.NODE_ENV === "production";
 const { hash, htmlBeautify, cdn, htmlReplace, i18n } = require("./config");
 
-const MyPlugin = require('./MyPlugin');
+const SimpleI18nWebpackPlugin = require('./SimpleI18nWebpackPlugin');
 
 const entry = {
 	common: "./src/js/common"
@@ -127,7 +127,7 @@ if (htmlReplace) {
 }
 
 if (i18n) {
-	webpackConfig.plugins.push(new MyPlugin(i18n))
+	webpackConfig.plugins.push(new SimpleI18nWebpackPlugin(i18n))
 }
 
 if (isProd) {

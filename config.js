@@ -5,11 +5,9 @@ module.exports = {
     htmlBeautify: false,
     cdn: "https://github.com/",
     i18n: {
+        pattern: /_\((.*?)\)/ig,
         path: path.resolve('./src/languages')
     },
-    htmlReplace: [{
-        pattern: 'name',
-        replacement: 'languages.zh.name'
-    }]
+    htmlReplace: null
 };
 
