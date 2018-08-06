@@ -9,11 +9,11 @@ const HtmlBeautifyPlugin = require("html-beautify-webpack-plugin");
 const autoprefixer = require("autoprefixer");
 const Reload4Plugin = require("@prakriya/reload4-html-webpack-plugin");
 const SimpleProgressWebpackPlugin = require("simple-progress-webpack-plugin");
-const pkg = require("./package.json");
-const cdn = pkg.cdn.trim();
 const isProd = process.env.NODE_ENV === "production";
-const hash = pkg.hash && isProd;
-const i18n = pkg.i18n;
+const config = require("./config");
+const cdn = config.cdn.trim();
+const hash = config.hash && isProd;
+const i18n = config.i18n;
 
 const entry = {
 	common: "./src/js/common"
@@ -35,7 +35,7 @@ glob.sync("./src/*.html").forEach(htmlPath => {
 	);
 });
 
-const config = {
+const webpackConfig = {
 	mode: isProd ? "production" : "development",
 	entry: entry,
 	output: {
@@ -124,7 +124,7 @@ const config = {
 
 if (isProd) {
 	const backupTime = String(new Date().getTime());
-	config.plugins.push(
+	webpackConfig.plugins.push(
 		new SimpleProgressWebpackPlugin({
 			format: "minimal"
 		}),
@@ -151,7 +151,7 @@ if (isProd) {
 		new HtmlBeautifyPlugin()
 	);
 } else {
-	config.plugins.push(new Reload4Plugin());
+	webpackConfig.plugins.push(new Reload4Plugin());
 }
 
-module.exports = config;
+module.exports = webpackConfig;

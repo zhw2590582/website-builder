@@ -27,18 +27,3 @@ function initScreen() {
 
 initScreen();
 window.addEventListener('resize', debounce(initScreen, 300));
-
-// 横屏提醒
-function forhorview() {
-	if ($('#forhorview').length == 0) {
-		$('body').append("<div id='forhorview'><p>推荐使用竖屏浏览哦~</p></div>");
-	}
-	if (window.orientation == 90 || window.orientation == -90) {
-		$('#forhorview').show();
-	} else {
-		$('#forhorview').hide();
-	}
-}
-
-forhorview();
-window.addEventListener('orientationchange', forhorview);
