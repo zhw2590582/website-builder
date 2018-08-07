@@ -3,5 +3,29 @@
 @import './utils/mixin';
 
 .index-page {
-    
+    width: 800px;
+    margin: 50px auto 0;
+    text-align: center;
+    .logo {
+        width: 100px;
+        margin: 0 auto 20px;
+    }
+    .languages {
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e0e0e0;
+        a {
+            color: rgb(76, 64, 255);
+            display: inline-block;
+            margin: 0 10px;
+        }
+    }
+    .i18n {
+        color: #666;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .replace {
+        font-size: 14px;
+        color: #999;
+    }
 }

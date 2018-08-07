@@ -1,24 +1,29 @@
 <%= require('html-loader!./templete/header.html') %>
 
-<div class="index-page">
-    <p>
-        <a href="/index.html">中文</a>
-    </p>
-    <p>
-        <a href="/en/index.html">English</a>
-    </p>
-    <p>_(name)</p>
-    <p>_(introduction)</p>
-    <p>_(introduction.career)</p>
-    <p>_(introduction.hobby.0)</p>
-    <p>_(introduction.hobby.1)</p>
-    <p>_(introduction.hobby.2)</p>
-    <p>_(introduction.location.0)</p>
-    <p>_(introduction.location.1)</p>
-    <p>_(introduction.location.2)</p>
-    <p>_(undefined)</p>
-    @@email
-    <img src="<%= require('./img/logo.png') %>" alt="name">
-</div>
+  <div class="index-page">
+    <div class="logo">
+      <img src="<%= require('./img/avatar.png') %>" alt="avatar">
+    </div>
+    <div class="languages">
+      <a href="/index.html">中文</a>
+      <a href="/en/index.html">English</a>
+    </div>
+    <div class="i18n">
+      <p>_(name)</p>
+      <p>_(introduction)</p>
+      <p>_(introduction.career)</p>
+      <p>_(introduction.hobby.0)</p>
+      <p>_(introduction.hobby.1)</p>
+      <p>_(introduction.hobby.2)</p>
+      <p>_(introduction.location.0)</p>
+      <p>_(introduction.location.1)</p>
+      <p>_(introduction.location.2)</p>
+      <p>_(undefined)</p>
+    </div>
+    <div class="replace">
+      <p>@@email</p>
+      <p>@@website</p>
+    </div>
+  </div>
 
-<%= require('html-loader!./templete/footer.html') %>
+  <%= require('html-loader!./templete/footer.html') %>

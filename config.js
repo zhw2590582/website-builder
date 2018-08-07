@@ -11,5 +11,8 @@ module.exports = {
   htmlReplace: [{
     pattern: '@@email',
     replacement: 'laozhaochaguan@gmail.com'
+  }, {
+    pattern: '@@website',
+    replacement: 'https://github.com/zhw2590582'
   }]
 };
