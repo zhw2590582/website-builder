@@ -5,8 +5,8 @@ module.exports = {
     htmlBeautify: false,
     cdn: "https://github.com/",
     i18n: {
-        pattern: /_\((.*?)\)/ig,
-        path: path.resolve('./src/languages')
+        zh: path.resolve('./src/languages/zh.json'),
+        en: path.resolve('./src/languages/en.json')
     },
     htmlReplace: null
 };

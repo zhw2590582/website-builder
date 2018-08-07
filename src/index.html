@@ -1,11 +1,16 @@
 <%= require('html-loader!./templete/header.html') %>
 
 <div class="index-page">
-    _(name)
-    _(fuck)
-    _(sub.sub.sub)
-    <img src="<%= require('./img/logo.png') %>" alt="name">
-    _(sub.sub.sub)
+    <p>_(title)</p>
+    <p>_(object)</p>
+    <p>_(object.object)</p>
+    <p>_(object.object.object)</p>
+    <p>_(array)</p>
+    <p>_(array.0)</p>
+    <p>_(array.0.0)</p>
+    <p>_(array.0.0.0)</p>
+    <p>_(undefined)</p>
+    <img src="<%= require('./img/logo.png') %>" alt="name" width="100">
 </div>
 
 <%= require('html-loader!./templete/footer.html') %>

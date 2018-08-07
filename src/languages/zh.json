@@ -1,8 +1,9 @@
 {
-    "name": "海伟",
-    "sub": {
-        "sub": {
-            "sub": "海伟sub"
-        }
-    }
-}
+    "title": "标题",
+    "object": {
+      "object": {
+        "object": "对象深度"
+      }
+    },
+    "array": [[["数组深度"]]]
+  }
