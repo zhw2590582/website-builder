@@ -1,0 +1,22 @@
+.index-page {
+  width: 800px;
+  margin: 50px auto 0;
+  text-align: center; }
+  .index-page .logo {
+    width: 100px;
+    margin: 0 auto 20px; }
+  .index-page .languages {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0; }
+    .index-page .languages a {
+      color: #4c40ff;
+      display: inline-block;
+      margin: 0 10px; }
+  .index-page .i18n {
+    color: #666;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0; }
+  .index-page .replace {
+    font-size: 14px;
+    color: #999; }
+
