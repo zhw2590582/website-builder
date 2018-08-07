@@ -1,9 +1,13 @@
 {
-    "title": "标题",
-    "object": {
-      "object": {
-        "object": "对象深度"
-      }
-    },
-    "array": [[["数组深度"]]]
+  "lang": "zh",
+  "name": "老赵茶馆",
+  "introduction": {
+    "career": "前端攻城狮",
+    "hobby": ["猫", "动画", "代码"],
+    "location": [
+      "中国",
+      "广东",
+      "深圳"
+    ]
   }
+}

@@ -1,9 +1,13 @@
 {
-    "title": "title",
-    "object": {
-      "object": {
-        "object": "object depth"
-      }
-    },
-    "array": [[["array depth"]]]
+  "lang": "en",
+  "name": "Harvey Zack",
+  "introduction": {
+    "career": "Front-end engineer",
+    "hobby": ["Cat", "Animation", "Code"],
+    "location": [
+      "China",
+      "GuangDong",
+      "ShenZhen"
+    ]
   }
+}
