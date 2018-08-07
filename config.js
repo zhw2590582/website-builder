@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   port: 3000,
   hash: true,
-  cdn: "/website-builder/",
+  publicPath: "/website-builder/",
   i18n: {
     zh: path.resolve('./src/languages/zh.json'),
     en: path.resolve('./src/languages/en.json'),

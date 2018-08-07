@@ -11,7 +11,7 @@ const FileManagerPlugin = require("filemanager-webpack-plugin");
 const HtmlReplaceWebpackPlugin = require("html-replace-webpack-plugin");
 const autoprefixer = require("autoprefixer");
 const isProd = process.env.NODE_ENV === "production";
-const { hash, cdn, htmlReplace, i18n } = require("./config");
+const { hash, publicPath, htmlReplace, i18n } = require("./config");
 
 const htmlList = glob.sync("./src/*.html").map(htmlPath => {
 	const filename = path.basename(htmlPath).toLowerCase();
@@ -35,7 +35,7 @@ module.exports = Object.keys(i18n).map((language, index) => {
 		output: {
 			path: path.join(__dirname, "./dist"),
 			filename: isProd && hash ? "js/[name]-[hash].js" : "js/[name].js",
-			publicPath: isProd && cdn ? cdn : "/"
+			publicPath: isProd && publicPath ? publicPath : "/"
 		},
 		resolve: {
 			extensions: [".js", ".scss"]
