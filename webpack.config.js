@@ -2,17 +2,16 @@ const path = require("path");
 const glob = require("glob");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const SimpleI18nWebpackPlugin = require("simple-i18n-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const SimpleProgressWebpackPlugin = require("simple-progress-webpack-plugin");
+const Reload4Plugin = require("@prakriya/reload4-html-webpack-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
-const HtmlBeautifyPlugin = require("html-beautify-webpack-plugin");
-const autoprefixer = require("autoprefixer");
-const Reload4Plugin = require("@prakriya/reload4-html-webpack-plugin");
-const SimpleProgressWebpackPlugin = require("simple-progress-webpack-plugin");
 const HtmlReplaceWebpackPlugin = require("html-replace-webpack-plugin");
-const SimpleI18nWebpackPlugin = require("simple-i18n-webpack-plugin");
+const autoprefixer = require("autoprefixer");
 const isProd = process.env.NODE_ENV === "production";
-const { hash, htmlBeautify, cdn, htmlReplace, i18n } = require("./config");
+const { hash, cdn, htmlReplace, i18n } = require("./config");
 
 const htmlList = glob.sync("./src/*.html").map(htmlPath => {
 	const filename = path.basename(htmlPath).toLowerCase();
@@ -25,15 +24,14 @@ const htmlList = glob.sync("./src/*.html").map(htmlPath => {
 	};
 });
 
-const entry = {
-	common: "./src/js/common"
-};
-
-const webpackConfigs = Object.keys(i18n).map(function(language) {
-	const config = {
+let reloadState = false;
+module.exports = Object.keys(i18n).map((language, index) => {
+	const webpackConfig = {
 		name: language,
 		mode: isProd ? "production" : "development",
-		entry: entry,
+		entry: {
+			common: "./src/js/common"
+		},
 		output: {
 			path: path.join(__dirname, "./dist"),
 			filename: isProd && hash ? "js/[name]-[hash].js" : "js/[name].js",
@@ -42,7 +40,12 @@ const webpackConfigs = Object.keys(i18n).map(function(language) {
 		resolve: {
 			extensions: [".js", ".scss"]
 		},
-		devtool: isProd ? "source-map" : "eval-source-map",
+		optimization: {
+			splitChunks: {
+				chunks: "all",
+				name: "vendor"
+			}
+		},
 		module: {
 			rules: [
 				{
@@ -87,7 +90,9 @@ const webpackConfigs = Object.keys(i18n).map(function(language) {
 							loader: "file-loader",
 							options: {
 								name:
-									isProd && hash ? "img/[name]-[hash].[ext]" : "img/[name].[ext]"
+									isProd && hash
+										? "img/[name]-[hash].[ext]"
+										: "img/[name].[ext]"
 							}
 						},
 						{
@@ -100,12 +105,6 @@ const webpackConfigs = Object.keys(i18n).map(function(language) {
 				}
 			]
 		},
-		optimization: {
-			splitChunks: {
-				chunks: "all",
-				name: "vendor"
-			}
-		},
 		plugins: [
 			new MiniCssExtractPlugin({
 				filename: isProd && hash ? "css/[name]-[hash].css" : "css/[name].css"
@@ -116,46 +115,11 @@ const webpackConfigs = Object.keys(i18n).map(function(language) {
 				"window.jQuery": "jquery"
 			})
 		]
-	}
-
-	if (i18n) {
-		htmlList.forEach(item => {
-			config.plugins.push(
-				new HtmlWebpackPlugin({
-					filename: language === 'zh' ? item.filename : language + '/' + item.filename,
-					template: item.template,
-					inject: "body",
-					favicon: "./src/img/favicon.ico",
-					chunks: ["vendor", "common", item.chunk]
-				})
-			);
-		});
-		config.plugins.push(
-			new SimpleI18nWebpackPlugin({
-				language: i18n[language]
-			})
-		);
-	} else {
-		htmlList.forEach(item => {
-			config.plugins.push(
-				new HtmlWebpackPlugin({
-					filename: item.filename,
-					template: item.template,
-					inject: "body",
-					favicon: "./src/img/favicon.ico",
-					chunks: ["vendor", "common", item.chunk]
-				})
-			)
-		});
-	}
-
-	if (htmlReplace) {
-		config.plugins.push(new HtmlReplaceWebpackPlugin(htmlReplace));
-	}
+	};
 
 	if (isProd) {
 		const backupTime = String(new Date().getTime());
-		config.plugins.push(
+		webpackConfig.plugins.push(
 			new SimpleProgressWebpackPlugin({
 				format: "minimal"
 			}),
@@ -180,15 +144,35 @@ const webpackConfigs = Object.keys(i18n).map(function(language) {
 				}
 			})
 		);
-
-		if (htmlBeautify) {
-			config.plugins.push(new HtmlBeautifyPlugin());
-		}
 	} else {
-		config.plugins.push(new Reload4Plugin());
+		if (!reloadState) {
+			reloadState = true;
+			webpackConfig.plugins.push(new Reload4Plugin());
+		}
 	}
 
-	return config;
-});
+	htmlList.forEach(item => {
+		webpackConfig.entry[item.chunkname] = item.chunk;
+		webpackConfig.plugins.unshift(
+			new HtmlWebpackPlugin({
+				filename: index === 0 ? item.filename : language + '/' + item.filename,
+				template: item.template,
+				inject: "body",
+				favicon: "./src/img/favicon.ico",
+				chunks: ["vendor", "common", item.chunkname]
+			})
+		);
+	});
 
-module.exports = webpackConfigs;
+	webpackConfig.plugins.push(
+		new SimpleI18nWebpackPlugin({
+			language: i18n[language]
+		})
+	);
+
+	if (htmlReplace) {
+		webpackConfig.plugins.push(new HtmlReplaceWebpackPlugin(htmlReplace));
+	}
+
+	return webpackConfig;
+});

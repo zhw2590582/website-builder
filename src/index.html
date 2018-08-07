@@ -1,6 +1,12 @@
 <%= require('html-loader!./templete/header.html') %>
 
 <div class="index-page">
+    <p>
+        <a href="/index.html">中文</a>
+    </p>
+    <p>
+        <a href="/en/index.html">English</a>
+    </p>
     <p>_(title)</p>
     <p>_(object)</p>
     <p>_(object.object)</p>
@@ -10,7 +16,7 @@
     <p>_(array.0.0)</p>
     <p>_(array.0.0.0)</p>
     <p>_(undefined)</p>
-    <img src="<%= require('./img/logo.png') %>" alt="name" width="100">
+    <img src="<%= require('./img/logo.png') %>" alt="name">
 </div>
 
 <%= require('html-loader!./templete/footer.html') %>
